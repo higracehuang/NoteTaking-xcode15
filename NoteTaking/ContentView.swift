@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  NoteTaking
-//
-//  Created by Le Huang on 1/18/24.
-//
-
 import SwiftUI
 import CoreData
 

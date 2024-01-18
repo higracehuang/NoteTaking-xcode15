@@ -1,10 +1,3 @@
-//
-//  Persistence.swift
-//  NoteTaking
-//
-//  Created by Le Huang on 1/18/24.
-//
-
 import CoreData
 
 struct PersistenceController {
