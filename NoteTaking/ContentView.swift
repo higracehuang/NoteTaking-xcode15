@@ -41,6 +41,8 @@ struct NoteEntryView: View {
   @State private var titleInput: String = ""
   @State private var contentInput: String = ""
   
+  @State private var shouldShowDeleteButton = false
+  
   var body: some View {
     if let title = noteEntry.title,
        let content = noteEntry.content,
@@ -58,7 +60,7 @@ struct NoteEntryView: View {
           TextEditor(text: $contentInput)
             .onAppear() {
               self.contentInput = content
-            }            
+            }
             .onChange(of: contentInput) { oldContent, newContent in
               PersistenceController.shared.updateNoteEntry(
                 noteEntry: noteEntry, title: titleInput, content: newContent)
@@ -69,11 +71,17 @@ struct NoteEntryView: View {
           Text(title)
           Text(updatedAt, formatter: itemFormatter)
           Spacer()
-          Button {
-            // TODO: add button action here
-          } label: {
-            Image(systemName: "minus.circle")
-          }.buttonStyle(.plain)
+          if shouldShowDeleteButton {
+            
+            Button {
+              // TODO: add button action here
+            } label: {
+              Image(systemName: "minus.circle")
+            }.buttonStyle(.plain)
+          }
+          
+        }.onHover { isHover in
+          shouldShowDeleteButton = isHover
         }
       }
     }
