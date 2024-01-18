@@ -36,7 +36,7 @@ private let itemFormatter: DateFormatter = {
 }()
 
 struct NoteEntryView: View {
-  var noteEntry: NoteEntry
+  @ObservedObject var noteEntry: NoteEntry
   
   @State private var titleInput: String = ""
   @State private var contentInput: String = ""
