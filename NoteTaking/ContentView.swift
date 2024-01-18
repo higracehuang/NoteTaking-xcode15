@@ -51,9 +51,17 @@ struct NoteEntryView: View {
             .onAppear() {
               self.titleInput = title
             }
+            .onChange(of: titleInput) { oldTitle, newTitle in
+              PersistenceController.shared.updateNoteEntry(
+                noteEntry: noteEntry, title: newTitle, content: contentInput)
+            }
           TextEditor(text: $contentInput)
             .onAppear() {
               self.contentInput = content
+            }            
+            .onChange(of: contentInput) { oldContent, newContent in
+              PersistenceController.shared.updateNoteEntry(
+                noteEntry: noteEntry, title: titleInput, content: newContent)
             }
         }
       } label: {
