@@ -49,4 +49,18 @@ struct PersistenceController {
       fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
     }
   }
+  
+  func updateNoteEntry(noteEntry: NoteEntry, title:String, content: String) {
+    let viewContext = container.viewContext
+    noteEntry.content = content
+    noteEntry.title = title
+    noteEntry.updatedAt = Date()
+    
+    do {
+      try viewContext.save()
+    } catch {
+      let nsError = error as NSError
+      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    }
+  }
 }
