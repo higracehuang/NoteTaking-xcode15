@@ -38,12 +38,24 @@ private let itemFormatter: DateFormatter = {
 struct NoteEntryView: View {
   var noteEntry: NoteEntry
   
+  @State private var titleInput: String = ""
+  @State private var contentInput: String = ""
+  
   var body: some View {
     if let title = noteEntry.title,
        let content = noteEntry.content,
        let updatedAt = noteEntry.updatedAt {
       NavigationLink {
-        Text(content)
+        VStack {
+          TextField("Title", text: $titleInput)
+            .onAppear() {
+              self.titleInput = title
+            }
+          TextEditor(text: $contentInput)
+            .onAppear() {
+              self.contentInput = content
+            }
+        }
       } label: {
         Text(title)
         Text(updatedAt, formatter: itemFormatter)
