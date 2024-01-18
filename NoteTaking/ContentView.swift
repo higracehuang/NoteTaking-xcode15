@@ -65,8 +65,16 @@ struct NoteEntryView: View {
             }
         }
       } label: {
-        Text(title)
-        Text(updatedAt, formatter: itemFormatter)
+        HStack {
+          Text(title)
+          Text(updatedAt, formatter: itemFormatter)
+          Spacer()
+          Button {
+            // TODO: add button action here
+          } label: {
+            Image(systemName: "minus.circle")
+          }.buttonStyle(.plain)
+        }
       }
     }
   }
