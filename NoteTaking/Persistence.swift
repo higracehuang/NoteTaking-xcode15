@@ -37,6 +37,16 @@ struct PersistenceController {
     container.viewContext.automaticallyMergesChangesFromParent = true
   }
   
+  func save() {
+    let viewContext = container.viewContext
+    do {
+      try viewContext.save()
+    } catch {
+      let nsError = error as NSError
+      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    }
+  }
+  
   func addNoteEntry() {
     let viewContext = container.viewContext
     let newNoteEntry = NoteEntry(context: viewContext)
@@ -45,12 +55,7 @@ struct PersistenceController {
     newNoteEntry.title = "Untitled"
     newNoteEntry.content = "TBD"
     
-    do {
-      try viewContext.save()
-    } catch {
-      let nsError = error as NSError
-      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-    }
+    save()
   }
   
   func updateNoteEntry(noteEntry: NoteEntry, title:String, content: String) {
@@ -59,22 +64,12 @@ struct PersistenceController {
     noteEntry.title = title
     noteEntry.updatedAt = Date()
     
-    do {
-      try viewContext.save()
-    } catch {
-      let nsError = error as NSError
-      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-    }
+    save()
   }
   
   func deleteNoteEntry(noteEntry: NoteEntry) {
     let viewContext = container.viewContext
     viewContext.delete(noteEntry)
-    do {
-      try viewContext.save()
-    } catch {
-      let nsError = error as NSError
-      fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-    }
+    save()
   }
 }
