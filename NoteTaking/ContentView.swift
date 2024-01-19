@@ -74,7 +74,7 @@ struct NoteEntryView: View {
           if shouldShowDeleteButton {
             
             Button {
-              // TODO: add button action here
+              PersistenceController.shared.deleteNoteEntry(noteEntry: noteEntry)
             } label: {
               Image(systemName: "minus.circle")
             }.buttonStyle(.plain)
